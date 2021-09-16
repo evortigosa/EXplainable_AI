@@ -7,4 +7,4 @@ PageRank Python developments
       - graph text print (print_graph)
       - graph graphical print (display)
 - Libs_PageRank.ipynb: tests of some libraries that comes with PageRank
-- graph.txt: text file to feed and test PageRank (node,node,edge_weight)
+- graph.txt: text file to feed and test PageRank (node_parent,node_child,edge_weight)
