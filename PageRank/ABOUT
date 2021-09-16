@@ -1,0 +1,10 @@
+PageRank Python developments
+
+- PageRank.ipynb: PageRank implementation and some tests
+- GraphPR.ipynb: Graph structure devoted to store node-link data and run PageRank, includes
+      - edge weighting
+      - hub and authority
+      - graph text print (display)
+      - graph graphical print (print_graph)
+- Libs_PageRank.ipynb: tests of some libraries that comes with PageRank
+- graph.txt: text file to feed and test PageRank (node,node,edge_weight)
