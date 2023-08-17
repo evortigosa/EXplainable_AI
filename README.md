@@ -14,8 +14,8 @@ We also included benchmarking tools in our framework (Taylor_Explainer.ipynb). S
 
 - Relative Input/Output Stability, RIS and ROS: used to evaluate explanation stability as to changes (local perturbations) in input data and output prediction probabilities, respectively.
   
-- Prediction Gap on Important Features: PGI assesses the impact of perturbing important features on the model's predictions, providing insights into the model's sensitivity to changes in important features that influence the output.
-  
 - Run Explanation Stability, RES: assesses the consistency of several explanations for the same instance under the same settings, with higher values indicating lower stability rates.
+
+- Prediction Gap on Important Features: PGI assesses the impact of perturbing important features on the model's predictions, providing insights into the model's sensitivity to changes in important features that influence the output.
   
 - Faithfulness of an Additive Explanator, FAE: assesses the rates an additive feature importance explainer preserves its primary property of local accuracy, i.e., the model prediction should be reconstructed by the summation of the importance values. The ratio indicates the explanations' share that preserved the local accuracy. We also compute the mean faithfulness; the greater the mean, the less faithful the additive method is.
