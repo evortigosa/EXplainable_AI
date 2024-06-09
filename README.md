@@ -19,3 +19,25 @@ We also included benchmarking tools in our framework (XAI_stability_metrics.ipyn
 - Faithfulness of an Additive Explanator - FAE: assesses the rates an additive feature importance explainer preserves its primary property of local accuracy, i.e., the model prediction should be reconstructed by the summation of the importance values. The ratio indicates the explanations' share that preserved the local accuracy (Taylor_Explainer.ipynb).
 
 - Prediction Gap on Important Features - PGI assesses the impact of perturbing important features on the model's predictions, providing insights into the model's sensitivity to changes in important features that influence the output (Taylor_Explainer.ipynb).
+
+
+# Cite Us
+
+If you find T-Explainer useful, cite our papers:
+
+@article{ortigossa2024texplainer,
+    title={{T-Explainer}: A Model-Agnostic Explainability Framework Based on Gradients}, 
+    author={Ortigossa, Evandro S and Dias, F{\'a}bio F and Barr, Brian and Silva, Claudio T and Nonato, Luis Gustavo},
+    journal= {Preprint arXiv:2404.16495},
+    year={2024}
+}
+
+@article{ortigossa2024explainable,
+    author= {Ortigossa, Evandro S and Gon{\c{c}}alves, Thales and Nonato, Luis Gustavo},
+    journal= {IEEE Access}, 
+    title= {{EXplainable} Artificial Intelligence ({XAI})--{From} Theory to Methods and Applications}, 
+    year= {2024},
+    volume= {X},
+    number= {},
+    pages= {XXXXX-XXXXX}
+}
