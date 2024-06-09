@@ -1,16 +1,22 @@
-@article{ortigossa2024texplainer,
-    title={{T-Explainer}: A Model-Agnostic Explainability Framework Based on Gradients}, 
-    author={Ortigossa, Evandro S and Dias, F{\'a}bio F and Barr, Brian and Silva, Claudio T and Nonato, Luis Gustavo},
-    journal= {Preprint arXiv:2404.16495},
-    year={2024}
-}
-
-@article{ortigossa2024explainable,
-    author= {Ortigossa, Evandro S and Gon{\c{c}}alves, Thales and Nonato, Luis Gustavo},
-    journal= {IEEE Access}, 
-    title= {{EXplainable} Artificial Intelligence ({XAI})--{From} Theory to Methods and Applications}, 
-    year= {2024},
-    volume= {X},
-    number= {},
-    pages= {XXXXX-XXXXX}
-}
+cff-version: 1.2.0
+title: T-Explainer
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Evandro
+    family-names: S Ortigossa
+  - given-names: Fábio
+    family-names: F Dias
+  - given-names: Brian
+    family-names: Barr
+  - given-names: Claudio
+    family-names: T Silva
+  - given-names: Luis Gustavo
+    family-names: Nonato
+identifiers:
+  - type: doi
+    value: 10.48550/arXiv.2404.16495
+    description: ArXiv
+license: CC-BY-4.0
