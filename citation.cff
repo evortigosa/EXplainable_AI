@@ -1,22 +1,32 @@
 cff-version: 1.2.0
-title: T-Explainer
-message: >-
-  If you use this software, please cite it using the
-  metadata from this file.
-type: software
+message: If you use this software, please cite it as below.
 authors:
-  - given-names: Evandro
-    family-names: S Ortigossa
-  - given-names: Fábio
-    family-names: F Dias
+  - given-names: Evandro S
+    family-names: Ortigossa
+  - given-names: Fábio F
+    family-names: Dias
   - given-names: Brian
     family-names: Barr
-  - given-names: Claudio
-    family-names: T Silva
+  - given-names: Claudio T
+    family-names: Silva
   - given-names: Luis Gustavo
     family-names: Nonato
-identifiers:
-  - type: doi
-    value: 10.48550/arXiv.2404.16495
-    description: ArXiv
-license: CC-BY-4.0
+title: texplainer
+doi: 10.48550/arXiv.2404.16495
+date-released: 2024-05-25
+preferred-citation:
+  type: article
+  authors:
+  - given-names: Evandro S
+    family-names: Ortigossa
+  - given-names: Fábio F
+    family-names: Dias
+  - given-names: Brian
+    family-names: Barr
+  - given-names: Claudio T
+    family-names: Silva
+  - given-names: Luis Gustavo
+    family-names: Nonato
+title: {{T-Explainer}: A Model-Agnostic Explainability Framework Based on Gradients}
+journal: Preprint ArXiv
+year: 2024
