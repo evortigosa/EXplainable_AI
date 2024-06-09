@@ -23,6 +23,23 @@ We also included benchmarking tools in our framework (XAI_stability_metrics.ipyn
 
 # Cite Us
 
-If you find T-Explainer useful, cite our papers.
+If you find T-Explainer useful, cite our papers:
 
+```
+@article{ortigossa2024texplainer,
+    title={{T-Explainer}: A Model-Agnostic Explainability Framework Based on Gradients}, 
+    author={Ortigossa, Evandro S and Dias, F{\'a}bio F and Barr, Brian and Silva, Claudio T and Nonato, Luis Gustavo},
+    journal= {Preprint arXiv:2404.16495},
+    year={2024}
+}
 
+@article{ortigossa2024explainable,
+    author= {Ortigossa, Evandro S and Gon{\c{c}}alves, Thales and Nonato, Luis Gustavo},
+    journal= {IEEE Access}, 
+    title= {{EXplainable} Artificial Intelligence ({XAI}) -- {From} Theory to Methods and Applications}, 
+    year= {2024},
+    volume= {X},
+    number= {},
+    pages= {XXXXX-XXXXX}
+}
+```
