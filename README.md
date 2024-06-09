@@ -23,7 +23,7 @@ We also included benchmarking tools in our framework (XAI_stability_metrics.ipyn
 
 # Cite Us
 
-If you find T-Explainer useful, cite our papers:
+If you find our work useful, please cite our papers:
 
 ```
 @article{ortigossa2024texplainer,
@@ -36,7 +36,7 @@ If you find T-Explainer useful, cite our papers:
 @article{ortigossa2024explainable,
     author= {Ortigossa, Evandro S and Gon{\c{c}}alves, Thales and Nonato, Luis Gustavo},
     journal= {IEEE Access}, 
-    title= {{EXplainable} Artificial Intelligence ({XAI}) -- {From} Theory to Methods and Applications}, 
+    title= {{EXplainable} Artificial Intelligence ({XAI})--{From} Theory to Methods and Applications}, 
     year= {2024},
     volume= {X},
     number= {},
