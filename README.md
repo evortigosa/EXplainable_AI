@@ -23,6 +23,6 @@ We also included benchmarking tools in our framework (XAI_stability_metrics.ipyn
 
 # Cite Us
 
-If you find T-Explainer useful, cite our papers:
+If you find T-Explainer useful, cite our papers.
 
-citation.cff
+
