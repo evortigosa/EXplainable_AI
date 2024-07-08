@@ -38,8 +38,8 @@ If you find our work useful, please cite our papers:
     journal= {IEEE Access}, 
     title= {{EXplainable} Artificial Intelligence ({XAI})--{From} Theory to Methods and Applications}, 
     year= {2024},
-    volume= {X},
+    volume= {12},
     number= {},
-    pages= {XXXXX-XXXXX}
+    pages= {80799-80846}
 }
 ```
