@@ -32,7 +32,9 @@ If you find our work useful, please cite our papers:
     journal= {Preprint arXiv:2404.16495},
     year={2024}
 }
+```
 
+```
 @article{ortigossa2024explainable,
     author= {Ortigossa, Evandro S and Gon{\c{c}}alves, Thales and Nonato, Luis Gustavo},
     journal= {IEEE Access}, 
