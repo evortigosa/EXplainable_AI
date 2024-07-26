@@ -12,13 +12,17 @@ Three versions are under development:
 
 We also included benchmarking tools in our framework (XAI_stability_metrics.ipynb and Taylor_Explainer.ipynb). Synthetic and real datasets, and five quantitative metrics:
 
-- Relative Input/Output Stability (RIS and ROS): these metrics are used to evaluate explanation stability as to changes (local perturbations) in input data and output prediction probabilities, respectively (XAI_stability_metrics.ipynb).
+- Relative Input/Output Stability (RIS and ROS): these metrics are used to evaluate explanation stability as to changes (local perturbations) in input data and output prediction probabilities, respectively (XAI_stability_faithfulness_metrics
+.ipynb).
   
-- Run Explanation Stability (RES): this metric assesses the consistency of several explanations for the same instance under the same settings, with higher values indicating lower stability rates (XAI_stability_metrics.ipynb).
+- Run Explanation Stability (RES): this metric assesses the consistency of several explanations for the same instance under the same settings, with higher values indicating lower stability rates (XAI_stability_faithfulness_metrics
+.ipynb).
   
-- Faithfulness of an Additive Explanator (FAE): this metric assesses the rates an additive feature importance explainer preserves its primary property of local accuracy, i.e., the model prediction should be reconstructed by the summation of the importance values. The ratio indicates the explanations' share, which preserves local accuracy (Taylor_Explainer.ipynb).
+- Local Accuracy Preservation (LAP): this metric assesses the rates an additive feature importance explainer preserves its primary property of local accuracy, i.e., the model prediction should be reconstructed by the summation of the importance values. The ratio indicates the explanations' share, which preserves local accuracy (XAI_stability_faithfulness_metrics
+.ipynb).
 
-- Prediction Gap on Important Features (PGI): this metric assesses explanations' faithfulness by examining the impact of keeping important features and perturbing (deleting) non-important features on the model's predictions (XAI_stability_metrics.ipynb).
+- Prediction Gap on Important Features (PGI): this metric assesses explanations' faithfulness by examining the impact of keeping important features and perturbing (deleting) non-important features on the model's predictions (XAI_stability_faithfulness_metrics
+.ipynb).
 
 
 # Cite Us
