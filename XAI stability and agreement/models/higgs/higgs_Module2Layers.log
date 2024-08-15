@@ -1,0 +1,47 @@
+2024-07-17 01:49:47,504 Best: 0.760010 using {'batch_size': 128, 'lr': 0.001, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 256, 'module__nonlin': Tanh()}
+2024-07-17 01:49:47,504 Best estimator configuration: 
+ <class 'skorch.classifier.NeuralNetClassifier'>[initialized](
+  module_=Module2Layers(
+    (dense0): Linear(in_features=28, out_features=256, bias=True)
+    (act): Tanh()
+    (dense1): Linear(in_features=256, out_features=256, bias=True)
+    (output): Linear(in_features=256, out_features=1, bias=True)
+    (sigmoid): Sigmoid()
+  ),
+)
+2024-07-17 01:49:47,504 0.740989 (0.005712) with: {'batch_size': 128, 'lr': 0.001, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 128, 'module__nonlin': Tanh()}
+2024-07-17 01:49:47,504 0.752928 (0.005070) with: {'batch_size': 128, 'lr': 0.001, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 128, 'module__nonlin': ReLU()}
+2024-07-17 01:49:47,504 0.760010 (0.005658) with: {'batch_size': 128, 'lr': 0.001, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 256, 'module__nonlin': Tanh()}
+2024-07-17 01:49:47,504 0.740384 (0.003566) with: {'batch_size': 128, 'lr': 0.001, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 256, 'module__nonlin': ReLU()}
+2024-07-17 01:49:47,504 0.756798 (0.003909) with: {'batch_size': 128, 'lr': 0.01, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 128, 'module__nonlin': Tanh()}
+2024-07-17 01:49:47,504 0.720044 (0.011351) with: {'batch_size': 128, 'lr': 0.01, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 128, 'module__nonlin': ReLU()}
+2024-07-17 01:49:47,504 0.733973 (0.006671) with: {'batch_size': 128, 'lr': 0.01, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 256, 'module__nonlin': Tanh()}
+2024-07-17 01:49:47,504 0.674929 (0.008498) with: {'batch_size': 128, 'lr': 0.01, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 256, 'module__nonlin': ReLU()}
+2024-07-17 01:49:47,504 0.739451 (0.003686) with: {'batch_size': 128, 'lr': 0.02, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 128, 'module__nonlin': Tanh()}
+2024-07-17 01:49:47,504 0.740921 (0.012154) with: {'batch_size': 128, 'lr': 0.02, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 128, 'module__nonlin': ReLU()}
+2024-07-17 01:49:47,505 0.735251 (0.005458) with: {'batch_size': 128, 'lr': 0.02, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 256, 'module__nonlin': Tanh()}
+2024-07-17 01:49:47,505 0.709406 (0.008445) with: {'batch_size': 128, 'lr': 0.02, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 256, 'module__nonlin': ReLU()}
+2024-07-17 04:21:14,920 Best: 0.769121 using {'batch_size': 128, 'lr': 0.001, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 128, 'module__nonlin': Tanh()}
+2024-07-17 04:21:14,920 Best estimator configuration: 
+ <class 'skorch.classifier.NeuralNetClassifier'>[initialized](
+  module_=Module3Layers(
+    (act): Tanh()
+    (dense0): Linear(in_features=28, out_features=128, bias=True)
+    (dense1): Linear(in_features=128, out_features=128, bias=True)
+    (dense2): Linear(in_features=128, out_features=128, bias=True)
+    (output): Linear(in_features=128, out_features=1, bias=True)
+    (sigmoid): Sigmoid()
+  ),
+)
+2024-07-17 04:21:14,920 0.769121 (0.004921) with: {'batch_size': 128, 'lr': 0.001, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 128, 'module__nonlin': Tanh()}
+2024-07-17 04:21:14,920 0.734661 (0.008788) with: {'batch_size': 128, 'lr': 0.001, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 128, 'module__nonlin': ReLU()}
+2024-07-17 04:21:14,920 0.759780 (0.006000) with: {'batch_size': 128, 'lr': 0.001, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 256, 'module__nonlin': Tanh()}
+2024-07-17 04:21:14,925 0.672802 (0.007885) with: {'batch_size': 128, 'lr': 0.001, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 256, 'module__nonlin': ReLU()}
+2024-07-17 04:21:14,925 0.702903 (0.006820) with: {'batch_size': 128, 'lr': 0.01, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 128, 'module__nonlin': Tanh()}
+2024-07-17 04:21:14,925 0.678261 (0.009495) with: {'batch_size': 128, 'lr': 0.01, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 128, 'module__nonlin': ReLU()}
+2024-07-17 04:21:14,925 0.699089 (0.005932) with: {'batch_size': 128, 'lr': 0.01, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 256, 'module__nonlin': Tanh()}
+2024-07-17 04:21:14,925 0.649510 (0.007212) with: {'batch_size': 128, 'lr': 0.01, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 256, 'module__nonlin': ReLU()}
+2024-07-17 04:21:14,925 0.744002 (0.009385) with: {'batch_size': 128, 'lr': 0.02, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 128, 'module__nonlin': Tanh()}
+2024-07-17 04:21:14,925 0.706026 (0.012414) with: {'batch_size': 128, 'lr': 0.02, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 128, 'module__nonlin': ReLU()}
+2024-07-17 04:21:14,925 0.694319 (0.098042) with: {'batch_size': 128, 'lr': 0.02, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 256, 'module__nonlin': Tanh()}
+2024-07-17 04:21:14,925 0.683542 (0.008749) with: {'batch_size': 128, 'lr': 0.02, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 256, 'module__nonlin': ReLU()}

@@ -1,0 +1,13 @@
+,auc_mean,std_mean,params,batch_size,lr,max_epochs,module__n_features,module__n_neurons,module__nonlin
+0,0.7695732912188169,0.004083851711800474,"{'batch_size': 128, 'lr': 0.001, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 128, 'module__nonlin': Tanh()}",128,0.001,128,28,128,Tanh()
+1,0.7308340125438366,0.007738650343052176,"{'batch_size': 128, 'lr': 0.001, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 128, 'module__nonlin': ReLU()}",128,0.001,128,28,128,ReLU()
+2,0.7602113898390879,0.007305781050945407,"{'batch_size': 128, 'lr': 0.001, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 256, 'module__nonlin': Tanh()}",128,0.001,128,28,256,Tanh()
+3,0.6742815604139402,0.004726152279845312,"{'batch_size': 128, 'lr': 0.001, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 256, 'module__nonlin': ReLU()}",128,0.001,128,28,256,ReLU()
+4,0.7033293412778148,0.006417477202745352,"{'batch_size': 128, 'lr': 0.01, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 128, 'module__nonlin': Tanh()}",128,0.01,128,28,128,Tanh()
+5,0.6813489801500436,0.006693057012114438,"{'batch_size': 128, 'lr': 0.01, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 128, 'module__nonlin': ReLU()}",128,0.01,128,28,128,ReLU()
+6,0.6934039909255925,0.0037019176020808117,"{'batch_size': 128, 'lr': 0.01, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 256, 'module__nonlin': Tanh()}",128,0.01,128,28,256,Tanh()
+7,0.6579999928037013,0.008675481506124703,"{'batch_size': 128, 'lr': 0.01, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 256, 'module__nonlin': ReLU()}",128,0.01,128,28,256,ReLU()
+8,0.7482178121005958,0.006824326790496208,"{'batch_size': 128, 'lr': 0.02, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 128, 'module__nonlin': Tanh()}",128,0.02,128,28,128,Tanh()
+9,0.7131816768467779,0.004463524668324242,"{'batch_size': 128, 'lr': 0.02, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 128, 'module__nonlin': ReLU()}",128,0.02,128,28,128,ReLU()
+10,0.7464875540563046,0.005411365003656179,"{'batch_size': 128, 'lr': 0.02, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 256, 'module__nonlin': Tanh()}",128,0.02,128,28,256,Tanh()
+11,0.680722336372755,0.016492869376880666,"{'batch_size': 128, 'lr': 0.02, 'max_epochs': 128, 'module__n_features': 28, 'module__n_neurons': 256, 'module__nonlin': ReLU()}",128,0.02,128,28,256,ReLU()
