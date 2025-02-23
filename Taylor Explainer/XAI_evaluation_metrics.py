@@ -349,7 +349,6 @@ class NormalPerturbation(BasePerturbation):
 # Quantitative Metrics -- Auxiliar Methods
 ##############################################################
 
-
 def pred_proba_to_log_odds(p, eps=1e-9):
     """
     converts probabilities to log odds
