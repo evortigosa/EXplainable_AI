@@ -2,6 +2,10 @@
 #          XAI stability and faithfulness metrics 
 # -- RIS, ROS, RES, PGI, LAP, and CAI (extensible versions)
 # 
+# For an overview of XAI metrics and evaluation, we refer to:
+# 10.1109/ACCESS.2024.3409843
+# 10.48550/arXiv.2404.16495
+#
 # TODO:
 # - import T-Exp (make T-Exp a Python module)
 ##############################################################
