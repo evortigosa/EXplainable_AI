@@ -7,7 +7,7 @@
 # 10.48550/arXiv.2404.16495
 #
 # TODO:
-# - import T-Exp (make T-Exp a Python module)
+# - import T-Exp (making T-Exp as a Python module)
 ##############################################################
 
 import numpy as np
@@ -140,7 +140,6 @@ class XAIExplainers():
         
         WIP: Import T-Exp
         """
-
         ohe_model= None
         retrained= False
         """
@@ -205,10 +204,8 @@ class XAIExplainers():
         # ---------- data point explanation -- SHAP Explanation
         if isinstance(self.model, xgb.XGBModel):
             shap_exp_gen= shap.TreeExplainer(self.model, self.data, model_output='probability')
-        elif hasattr(self.model, 'predict'):
-            shap_exp_gen= shap.Explainer(self.model.predict, self.data)
         else:
-            shap_exp_gen= shap.Explainer(self.model.predict_proba, self.data)
+            shap_exp_gen= shap.Explainer(self.model.predict, self.data)
 
         shap_x_exp= shap_exp_gen(target_x)
         shap_x_exp= (torch.from_numpy(shap_x_exp.values)).squeeze()
@@ -358,33 +355,50 @@ def pred_proba_to_log_odds(p, eps=1e-9):
     converts probabilities to log odds
     eps is a small positive value to prevent division by zero
     """
-    
     p_clipped= np.clip(p, eps, 1 - eps)
     
     return np.log(p_clipped / (1 - p_clipped))
 
 
 ##############################################################
-def ML(model, x, lodds:bool=False):
+def ML(model, x, predict_proba=True, lodds:bool=False):
     """
-    defining the ML function
-    model is a m-class classification model, that is, f(x) = (p1(x),...,pm(x))
-    x is a n-dimensional data instance (DataFrame with column names if model was trained with feature names)
+    Computes the predicted probabilities or class labels of a given instance x using a 
+    trained machine learning model.
 
-    RETURNS: p(x), where each p_i(x) accounts for the probability of x belonging to the class i
+    Parameters:
+    - model (object): a trained binary classification model that supports predict_proba- and 
+    predict-like methods.
+    - x (pd.DataFrame): a data instance (feature vector) for which predictions will be made. If 
+    the model was trained with feature names, x should be a DataFrame with matching column names.
+    - predict_proba: bool, optional (default=True)
+        - If True, returns the predicted probabilities of each class.
+        - If False, returns the predicted class labels.
+    - lodds: bool, optional (default=False)
+        - If True, converts predicted probabilities to log-odds before returning.
+        - Only applicable if predict_proba=True.
+    RETURNS:
+    - np.ndarray
+        - If predict_proba=True: Returns an array of predicted probabilities for each class.
+        - If predict_proba=False: Returns an array of predicted class labels.
+        - If lodds=True: Returns log-odds of predicted probabilities.
     """
     # ignore temporarily warnings related to feature names
     with warnings.catch_warnings():
         warnings.filterwarnings("ignore", message="X does not have valid feature names")
         
-        probs= np.squeeze(model.predict_proba(x))
+        if predict_proba:
+            pred= np.squeeze(model.predict_proba(x))  # ensure output shape is 1D
+        else:
+            pred= model.predict(x)  # predict class labels
+
         # reset the warning settings
     warnings.resetwarnings()
 
-    if lodds:
-        return pred_proba_to_log_odds(probs)
+    if lodds and predict_proba:  # convert predicted probabilities to log-odds
+        return pred_proba_to_log_odds(pred)
         
-    return probs
+    return pred
 
 
 ##############################################################
@@ -392,7 +406,6 @@ def distance_ordering(tensor_x, tensor_y, target_x):
     """
     RETURNS: tensor_x and tensor_y datsets (tensors) according to euclidean distance ordering from target_x
     """
-    
     # Calculate Euclidean distances for each row
     distances= torch.norm((tensor_x - target_x), dim=1)
 
@@ -415,7 +428,6 @@ def remove_tensor_row_by_indexset(dataset, index_to_remove):
     
     RETURNS: a subset form dataset without the index_to_remove instances
     """
-
     # Ensure indices are unique and sorted (if necessary)
     index_to_remove= torch.unique(index_to_remove)
     
@@ -446,7 +458,6 @@ def get_subsets(x, x_class, dataset, dataset_class, n_elements, option:int=0):
     
     option 0 gives us y' = y for all x' and option 1 relaxes such a restriction
     """
-    
     data_size= dataset.shape[0]
     
     if (data_size< n_elements):
@@ -502,7 +513,6 @@ def clip_small_values(v, eps=1e-6):
 
     RETURNS: v clipped
     """
-    
     if isinstance(v, np.ndarray):
         # Vectorized clipping for arrays
         v_clipped= np.where((v < 0) & (np.abs(v) < eps), -eps, v)
@@ -524,7 +534,6 @@ def square_difference(v1, v2):
     """
     RETURNS: the square of the difference of any two quantities v1 and v2.
     """
-    
     # arrays can be flattened, so long as ordering is preserved
     v1_flat= np.asarray(v1).flatten()
     v2_flat= np.asarray(v2).flatten()
@@ -540,7 +549,6 @@ def lp_norm_dif(v1, v2, p_norm=2, eps=1e-6, norm:bool=True):
     RETURNS: the Lp norm of the difference between v1 and v2.
     normalizes the difference between v1 and v2 by v1 (adapted; Agarwal, Chirag, et al., 2022)
     """
-    
     # arrays can be flattened, so long as ordering is preserved
     v1_flat= np.asarray(v1).flatten()
     v2_flat= np.asarray(v2).flatten()
@@ -557,8 +565,9 @@ def lp_norm_dif(v1, v2, p_norm=2, eps=1e-6, norm:bool=True):
 
 ##############################################################
 def ris_measure(x_data, x_pert, exp_data, exp_pert, p_norm=2, eps=1e-6):
-    """ compute norm between predictions per perturbation - RIS """
-    
+    """ 
+    compute norm between predictions per perturbation - RIS 
+    """
     x_dif_norm= lp_norm_dif(x_data, x_pert, p_norm=p_norm, eps=eps, norm=True)
     # x_dif_norm= np.clip(x_dif_norm, eps, None)
     x_dif_norm= clip_small_values(x_dif_norm, eps)
@@ -576,7 +585,6 @@ def ros_measure(fx_data, fx_pert, exp_data, exp_pert, p_norm=2, eps=1e-6):
     compute norm between representations - ROS
     x_data and x_pert must to be pd.DataFrame row individual instances with column names
     """
-    
     fx_dif_norm= lp_norm_dif(fx_data, fx_pert, p_norm=p_norm, eps=eps, norm=True)
     # fx_dif_norm= np.clip(fx_dif_norm, eps, None)
     fx_dif_norm= clip_small_values(fx_dif_norm, eps)
@@ -593,7 +601,6 @@ def lime_exp_in_data_order(lime_exp, num_fts):
     """
     bring explanations into data order (since LIME automatically orders according to highest importance)
     """
-    
     exp= np.zeros(num_fts)
 
     for k, v in lime_exp.local_exp[1]:
@@ -640,7 +647,7 @@ def relative_stability(model, explainers, data, labels, perturbation, descriptor
         # i_data as a tensor
         x_data= torch.tensor(target_x.values, dtype=torch.float64)
         # data point prediction
-        y_pred= torch.from_numpy(model.predict(target_x).astype(int))
+        y_pred= torch.from_numpy(ML(model, target_x, predict_proba=False).astype(int))
         fx_data= ML(model, target_x)
 
 
@@ -669,9 +676,9 @@ def relative_stability(model, explainers, data, labels, perturbation, descriptor
         )
 
         # --- take the closest num_perts points to x_data that have the same predicted class label to x_data
-        y_pert_preds= torch.from_numpy(
-            model.predict(pd.DataFrame(data=x_pert_samples.numpy(), columns=data.columns)).astype(int)
-        )
+        y_pert_preds= torch.from_numpy(ML(
+            model, pd.DataFrame(data=x_pert_samples.numpy(), columns=data.columns), predict_proba=False
+        ).astype(int))
         
         # get only the first num_perts points ordered by class and distance from x_data
         x_pert_samples, y_pert_preds= get_subsets(
@@ -1102,7 +1109,7 @@ def eval_local_accuracy(model, explainers, data, labels, descriptor, train_data,
         target_y= pd.DataFrame(data=[labels.iloc[i_data]], columns=labels.columns)
         
         # get the predicted probability of f(x)
-        fx_p_class= ((model.predict(target_x)).astype(int))[0]
+        fx_p_class=(ML(model, target_x, predict_proba=False).astype(int))[0]
         fx_p_prob = ML(model, target_x)[fx_p_class]
         
         fx_tol_pls= fx_p_prob + tolerance
