@@ -14,12 +14,12 @@ import numpy as np
 import pandas as pd
 import torch
 import torch.nn as nn
+import data_processing as dp
 import xgboost as xgb
 import warnings
 
 import lime
 import lime.lime_tabular
-
 import shap
 
 # from sklearn.base import clone
@@ -982,42 +982,6 @@ def eval_pred_faithfulness(model, explainers, data, labels, descriptor, top_k=1,
 # Metric -- Local Accuracy Preservation -- LAP
 ##############################################################
 
-def replace_values(df,num_cols,num_type='mean',cat_type='none'):
-    """
-    RETURNS: a DataFrame with replaced values (mean/median/mode/zeros/none to categorical and numeric) 
-    to fill train cols. df is post-processed (cat_cols encoded)
-    """
-    cat_values= None
-    num_values= None
-    
-    if (cat_type=='mean'):
-        cat_values= df.mean(axis=0).to_frame().T
-    elif (cat_type=='median'):
-        cat_values= df.median(axis=0).to_frame().T
-    elif (cat_type=='mode'):
-        cat_values= df.mode(axis=0)
-    elif (cat_type=='zeros'):
-        cat_values= df.loc[0:0,:].copy()
-        cat_values.loc[:,:]= 0
-    
-    if (num_type=='mode'):
-        num_values= df.mode(axis=0)
-    elif (num_type=='median'):
-        num_values= df.median(axis=0).to_frame().T
-    elif (num_type=='mean'):
-        num_values= df.mean(axis=0).to_frame().T
-    elif (num_type=='zeros'):
-        num_values= df.loc[0:0,:].copy()
-        num_values.loc[:,:]= 0
-
-    if (cat_type!='none'):
-        cat_values[num_cols]= num_values[num_cols]
-        return cat_values
-    
-    return num_values
-
-
-##############################################################
 def expected_value_x_mean(model, x_mean, y_train, lodds:bool=False):
     """
     Expected value can be understood as the average model output across the training set, and the true labels
@@ -1081,7 +1045,9 @@ def eval_local_accuracy(model, explainers, data, labels, descriptor, train_data,
              decomposes the prediction).
     """
     # we assume all data are numerical and compute the mean of training data to approximate E[f(X)]
-    mean_inst= replace_values(train_data, train_data.columns, num_type='mean', cat_type='none')
+    mean_inst= dp.replace_values(
+        train_data, train_data.columns.tolist(), num_type='mean', cat_type='none'
+    )
     # e_fx can be understood as the average model output across the training set X when Xi is not known
     # for this reason, the data mean is used
     phi_0= expected_value_x_mean(model, mean_inst, labels_train.values.ravel())
