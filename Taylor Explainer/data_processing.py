@@ -256,7 +256,7 @@ def check_null_values(df, text_info=False):
 
     if (text_info and null_values):
         print("There are some missing values in the dataset")
-    else:
+    elif text_info:
         print("There are no missing values in the dataset")
 
     return null_values
