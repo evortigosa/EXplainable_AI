@@ -41,8 +41,10 @@ class MLPClassifierModel(nn.Module):
     Create a custom PyTorch model that mimics the behavior of a scikit-learn MLPClassifier model
     Define the PyTorch Neural Network model (ReLU MLP-based)
     """
-    def __init__(self, input_size, hidden_sizes, output_size, activation=nn.ReLU()):
+    def __init__(self, input_size, hidden_sizes, output_size, activation=None):
         super(MLPClassifierModel, self).__init__()
+        
+        activation= activation if activation else nn.ReLU()
         
         self.layers= nn.ModuleList([nn.Linear(input_size, hidden_sizes[0])])
         self.activations= [activation]
@@ -64,7 +66,7 @@ class MLPClassifierModel(nn.Module):
 
 
 ##############################################################
-def sklearn_to_pytorch_NN(skl_nn_model, input_size, output_size=1, activation=nn.ReLU()):
+def sklearn_to_pytorch_NN(skl_nn_model, input_size, output_size=1, activation=None):
     """
     convert a scikit-learn NN model to a PyTorch NN model
 
@@ -74,10 +76,24 @@ def sklearn_to_pytorch_NN(skl_nn_model, input_size, output_size=1, activation=nn
     RETURNS: a PyTorch Neural Net model used to binary classifications
     binary classification -- one output neuron for the binary prediction
     """
+    # mapping from scikit-learn activation string to PyTorch activation function.
+    activation_map= {
+        'identity': nn.Identity(),
+        'logistic': nn.Sigmoid(),
+        'tanh': nn.Tanh(),
+        'relu': nn.ReLU()
+    }
+    if activation is None:
+        activation= activation_map.get(
+            getattr(skl_nn_model, 'activation', 'relu'), nn.ReLU()
+        )
 
-    input_size= input_size
-    hidden_sizes= skl_nn_model.hidden_layer_sizes
-
+    if isinstance(skl_nn_model.hidden_layer_sizes, tuple):
+        hidden_sizes= list(skl_nn_model.hidden_layer_sizes)
+    else:
+        [skl_nn_model.hidden_layer_sizes]
+    output_size= output_size if output_size else skl_nn_model.n_outputs_
+    
     nn_pytorch_model= MLPClassifierModel(input_size, hidden_sizes, output_size, activation)
 
     # Transfer the weights from the scikit-learn model to the PyTorch model
@@ -87,7 +103,6 @@ def sklearn_to_pytorch_NN(skl_nn_model, input_size, output_size=1, activation=nn
 
     nn_pytorch_model.output_layer.weight.data= torch.tensor(skl_nn_model.coefs_[-1].T, dtype=torch.float32)
     nn_pytorch_model.output_layer.bias.data= torch.tensor(skl_nn_model.intercepts_[-1], dtype=torch.float32)
-    
     
     return nn_pytorch_model
 
