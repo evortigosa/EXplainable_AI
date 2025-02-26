@@ -3,8 +3,8 @@
 # -- RIS, ROS, RES, PGI, LAP, and CAI (extensible versions)
 # 
 # For an overview of XAI metrics and evaluation, we refer to:
-# 10.1109/ACCESS.2024.3409843
-# 10.48550/arXiv.2404.16495
+# http://dx.doi.org/10.1109/ACCESS.2024.3409843
+# http://dx.doi.org/10.48550/arXiv.2404.16495
 #
 # TODO:
 # - import T-Exp (making T-Exp as a Python module)
@@ -419,12 +419,14 @@ def ML(model, x, predict_proba=True, lodds:bool=False):
 ##############################################################
 def distance_ordering(tensor_x, tensor_y, target_x):
     """
-    RETURNS: tensor_x and tensor_y datsets (tensors) according to euclidean distance ordering from target_x
+    Order the rows of two torch.Tensor according to their Euclidean distance from a target 
+    instance.
+    RETURNS: tensor_x and tensor_y (torch.Tensor) ordered by increasing Euclidean distance 
+             from target_x
     """
-    # Calculate Euclidean distances for each row
+    # calculate Euclidean distances for each row
     distances= torch.norm((tensor_x - target_x), dim=1)
-
-    # Sort the data tensor based on distances
+    # sort the data tensor based on distances
     sorted_indices= torch.argsort(distances)
     
     sorted_x= tensor_x[sorted_indices]
@@ -436,21 +438,20 @@ def distance_ordering(tensor_x, tensor_y, target_x):
 ##############################################################
 def remove_tensor_row_by_indexset(dataset, index_to_remove):
     """
-    Remove a set of rows in a tensor dataset by index
+    Remove a set of rows from a tensor dataset using a set of indices.
 
-    dataset is a n elements dataset
+    dataset is a tensor dataset with shape (n_rows, ...)
     index_to_remove is a m elements tensor with the indexes to remove
     
     RETURNS: a subset form dataset without the index_to_remove instances
     """
-    # Ensure indices are unique and sorted (if necessary)
+    # ensure indices are unique and sorted (if necessary)
     index_to_remove= torch.unique(index_to_remove)
     
-    # Generate a mask of rows to keep
+    # generate a mask of rows to keep
     mask= torch.ones(dataset.size(0), dtype=torch.bool)
     mask[index_to_remove]= False  # Set indices to remove as False
-
-    # Apply the mask to filter the dataset
+    # apply the mask to filter the dataset
     subset= dataset[mask]
 
     return subset
@@ -521,19 +522,20 @@ def get_subsets(x, x_class, dataset, dataset_class, n_elements, option:int=0):
 ##############################################################
 def clip_small_values(v, eps=1e-6):
     """
-    clip values near to zero in v replacing by eps
+    clip values near to zero in v replacing them with eps
 
     - v is a single value (float) or a numpy.ndarray with (n,) shape
     - eps is a small number of tolerance limiting what is a small value
 
-    RETURNS: v clipped
+    RETURNS: v with values whose absolute value is below eps replaced
+             with eps (preserving the sign).
     """
     if isinstance(v, np.ndarray):
-        # Vectorized clipping for arrays
+        # vectorized clipping for arrays
         v_clipped= np.where((v < 0) & (np.abs(v) < eps), -eps, v)
         v_clipped= np.where((v > 0) & (v < eps), eps, v_clipped)
     else:
-        # Scalar clipping
+        # scalar clipping
         if (v < 0 and abs(v) < eps):
             v_clipped = -eps
         elif (v > 0 and v < eps):
@@ -547,7 +549,9 @@ def clip_small_values(v, eps=1e-6):
 ##############################################################
 def square_difference(v1, v2):
     """
-    RETURNS: the square of the difference of any two quantities v1 and v2.
+    Compute the element-wise square of the difference between two arrays.
+    RETURNS: the square of the difference of the corresponding elements 
+             in v1 and v2.
     """
     # arrays can be flattened, so long as ordering is preserved
     v1_flat= np.asarray(v1).flatten()
@@ -561,8 +565,9 @@ def square_difference(v1, v2):
 ##############################################################
 def lp_norm_dif(v1, v2, p_norm=2, eps=1e-6, norm:bool=True):
     """
+    Normalizes the difference between v1 and v2 by v1 (adapted; Agarwal, 
+    Chirag, et al., 2022)
     RETURNS: the Lp norm of the difference between v1 and v2.
-    normalizes the difference between v1 and v2 by v1 (adapted; Agarwal, Chirag, et al., 2022)
     """
     # arrays can be flattened, so long as ordering is preserved
     v1_flat= np.asarray(v1).flatten()
@@ -614,7 +619,8 @@ def ros_measure(fx_data, fx_pert, exp_data, exp_pert, p_norm=2, eps=1e-6):
 ##############################################################
 def lime_exp_in_data_order(lime_exp, num_fts):
     """
-    bring explanations into data order (since LIME automatically orders according to highest importance)
+    bring explanations into data order (since LIME automatically orders according 
+    to highest importance)
     """
     exp= np.zeros(num_fts)
 
