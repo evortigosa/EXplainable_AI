@@ -5,8 +5,8 @@
 # Tasks -- Binary classification
 # 
 # For an overview of XAI methods, we refer to:
-# 10.1109/ACCESS.2024.3409843
-# 10.48550/arXiv.2404.16495
+# http://dx.doi.org/10.1109/ACCESS.2024.3409843
+# http://dx.doi.org/10.48550/arXiv.2404.16495
 #
 ##############################################################
 
