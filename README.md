@@ -1,9 +1,9 @@
-# EXplainable_AI
+# EXplainable AI
 Explainable Artificial Intelligence (XAI)
 
 Three versions are under development:
 
-- FAR-Explainer: Feature Attribution using Ranking (Ft_Att_Rank.ipynb). In this version, we use a concept similar to Breiman's Feature Importance and SHAP, verifying the sensitivity of a trained model by "omitting" features. Then, we build a transition matrix by omitting one feature (i) and two features (ij). Through this matrix, we apply Markovian modeling to get the stationary distribution that bears the feature importances. However, stationary distribution only holds positive values. Then, we must determine the direction of individual importances (positive and negative) relative to each data instance. (DISCONTINUED)
+- FAR-Explainer: Feature Attribution using Ranking (Ft_Att_Rank.ipynb). In this version, we use a concept similar to Breiman's Feature Importance and SHAP, verifying the sensitivity of a trained model by "omitting" features. Then, we build a transition matrix by omitting one feature (i) and two features (ij). We apply Markovian modeling through this matrix to get the stationary distribution that bears the feature importances. However, stationary distribution only holds positive values. Then, we must determine the direction of individual importances (positive and negative) relative to each data instance. (DISCONTINUED)
 
 - SVD-Explainer: Jacobian-Singular Value Decomposition Feature Attribution (Taylor_Explainer.ipynb). In this version, we determine the Jacobian matrix (linear transformation) of M (trained m-class classification model) using the Finite Difference Method for systems of nonlinear equations [M(x + h) ~ M(x) + JM(x).h], x ∈ X is an instance in R^n and M: X -> Ω ⊂ R^m. Then, we decompose the Jacobian using the SVD method, returning [U dot S dot VT]. The vectors v_i give rise to an orthonormal basis for a j-dimensional subspace in R^n, j = min{m, n}. Denoting the coordinates of each basis vector v_i as (v_1i, ..., v_ni), the value v_ji can be interpreted as the importance of attribute j for v_i. Then, we can measure the degree of importance of each attribute in the mapping by properly weighting their contribution according to phi_i = sum_{k=1 to j}[(sk/s1)*(vk.T dot x)*(vik)]. (WIP)
 
@@ -12,13 +12,13 @@ Three versions are under development:
 
 We also included benchmarking tools in our framework: Synthetic and real datasets and quantitative metrics:
 
-- Relative Input/Output Stability (RIS and ROS): these metrics are used to evaluate explanation stability as to changes (local perturbations) in input data and output prediction probabilities, respectively (XAI_evaluation_metrics.py).
-  
-- Run Explanation Stability (RES): this metric assesses the consistency of several explanations for the same instance under the same settings, with higher values indicating lower stability rates (XAI_evaluation_metrics.py).
+- Relative Input/Output Stability (RIS and ROS): These metrics evaluate explanation stability as to changes (local perturbations) in input data and output prediction probabilities, respectively (XAI_evaluation_metrics.py).
+ 
+- Run Explanation Stability (RES): This metric assesses the consistency of several explanations for the same instance under the same settings, with higher values indicating lower stability rates (XAI_evaluation_metrics.py).
 
-- Prediction Gap on Important Features (PGI): this metric assesses explanations' faithfulness by examining the impact of keeping important features and perturbing (deleting) non-important features on the model's predictions (XAI_evaluation_metrics.py).
-  
-- Local Accuracy Preservation (LAP): this metric assesses the rates an additive feature importance explainer preserves its primary property of local accuracy, i.e., the model prediction should be reconstructed by summating the importance values. The ratio indicates the explanations' share, which preserves local accuracy (XAI_evaluation_metrics.py).
+- Prediction Gap on Important Features (PGI): This metric assesses explanations' faithfulness by examining the impact of keeping important features and perturbing (deleting) non-important features on the model's predictions (XAI_evaluation_metrics.py).
+
+- Local Accuracy Preservation (LAP): This metric assesses the rates at which an additive feature importance explainer preserves its primary property of local accuracy, i.e., the model prediction should be reconstructed by summating the importance values. The ratio indicates the explanations' share, which preserves local accuracy (XAI_evaluation_metrics.py).
 
 
 # Cite Us
