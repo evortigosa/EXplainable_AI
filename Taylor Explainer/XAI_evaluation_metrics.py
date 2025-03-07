@@ -68,10 +68,12 @@ class MLPClassifierModel(nn.Module):
 ##############################################################
 def sklearn_to_pytorch_NN(skl_nn_model, input_size, output_size=1, activation=None):
     """
-    convert a scikit-learn NN model to a PyTorch NN model
+    Convert a scikit-learn NN model to a PyTorch NN model
 
-    skl_nn_model is the scikit-learn Neural Net model
-    input_size is the number of input features
+    - skl_nn_model is the scikit-learn Neural Net model
+    - input_size is the number of input features
+    - output_size is the number of logits predicted by the model
+    - activation is the activation function
     
     RETURNS: a PyTorch Neural Net model used to binary classifications
     binary classification -- one output neuron for the binary prediction
@@ -118,10 +120,11 @@ class XAIExplainers():
     Define the XAI Explainers that will be evaluated
     """
     def __init__(
-            self, model, training_data, training_labels, descriptor, cat_fts=[], is_model_NN:bool=False
+        self, model, training_data, training_labels, descriptor, cat_fts=[], is_model_NN:bool=False
     ) -> None:
         """
         Initializes the XAIExplainers class.
+
         Parameters:
         - model: A trained machine learning model (sklearn or XGBoost) -- binary classifier.
         - training_data: DataFrame with the training data.
@@ -367,8 +370,8 @@ class NormalPerturbation(BasePerturbation):
 
 def pred_proba_to_log_odds(p, eps=1e-9):
     """
-    converts probabilities to log odds
-    eps is a small positive value to prevent division by zero
+    Converts probabilities to log odds
+    - eps is a small positive value to prevent division by zero
     """
     p_clipped= np.clip(p, eps, 1 - eps)
     
@@ -440,8 +443,8 @@ def remove_tensor_row_by_indexset(dataset, index_to_remove):
     """
     Remove a set of rows from a tensor dataset using a set of indices.
 
-    dataset is a tensor dataset with shape (n_rows, ...)
-    index_to_remove is a m elements tensor with the indexes to remove
+    - dataset is a tensor dataset with shape (n_rows, ...)
+    - index_to_remove is a m elements tensor with the indexes to remove
     
     RETURNS: a subset form dataset without the index_to_remove instances
     """
@@ -462,12 +465,12 @@ def get_subsets(x, x_class, dataset, dataset_class, n_elements, option:int=0):
     """
     Obtain a subset from a dataset with at least n_elements.
 
-    x is a tensor instance
-    x_class is a tensor with the class of x
-    dataset is a m elements tensor dataset
-    dataset_class is a m elements tensor with the predicted 
-    n_elements is an integer indicating the size of the subset
-    
+    - x is a tensor instance
+    - x_class is a tensor with the class of x
+    - dataset is a m elements tensor dataset
+    - dataset_class is a m elements tensor with the predicted 
+    - n_elements is an integer indicating the size of the subset
+
     RETURNS: two tensor subsets (from dataset and dataset_class) with 
              option 1 - n_elements ordered first by class (same from x) and then by distance from x
              option 0 - n_elements ordered by class (same from x) and filled (if necessary) with x and x_class
@@ -522,7 +525,7 @@ def get_subsets(x, x_class, dataset, dataset_class, n_elements, option:int=0):
 ##############################################################
 def clip_small_values(v, eps=1e-6):
     """
-    clip values near to zero in v replacing them with eps
+    Clip values near to zero in v replacing them with eps
 
     - v is a single value (float) or a numpy.ndarray with (n,) shape
     - eps is a small number of tolerance limiting what is a small value
@@ -565,8 +568,7 @@ def square_difference(v1, v2):
 ##############################################################
 def lp_norm_dif(v1, v2, p_norm=2, eps=1e-6, norm:bool=True):
     """
-    Normalizes the difference between v1 and v2 by v1 (adapted; Agarwal, 
-    Chirag, et al., 2022)
+    Normalizes the difference between v1 and v2 by v1 (adapted; Chirag Agarwal et al., 2022)
     RETURNS: the Lp norm of the difference between v1 and v2.
     """
     # arrays can be flattened, so long as ordering is preserved
@@ -586,7 +588,7 @@ def lp_norm_dif(v1, v2, p_norm=2, eps=1e-6, norm:bool=True):
 ##############################################################
 def ris_measure(x_data, x_pert, exp_data, exp_pert, p_norm=2, eps=1e-6):
     """ 
-    compute norm between predictions per perturbation - RIS 
+    Compute norm between predictions per perturbation - RIS 
     """
     x_dif_norm= lp_norm_dif(x_data, x_pert, p_norm=p_norm, eps=eps, norm=True)
     # x_dif_norm= np.clip(x_dif_norm, eps, None)
@@ -602,8 +604,8 @@ def ris_measure(x_data, x_pert, exp_data, exp_pert, p_norm=2, eps=1e-6):
 ##############################################################
 def ros_measure(fx_data, fx_pert, exp_data, exp_pert, p_norm=2, eps=1e-6):
     """
-    compute norm between representations - ROS
-    x_data and x_pert must to be pd.DataFrame row individual instances with column names
+    Compute norm between representations - ROS
+    fx_data and fx_pert must to be pd.DataFrame row individual instances with column names
     """
     fx_dif_norm= lp_norm_dif(fx_data, fx_pert, p_norm=p_norm, eps=eps, norm=True)
     # fx_dif_norm= np.clip(fx_dif_norm, eps, None)
@@ -619,7 +621,7 @@ def ros_measure(fx_data, fx_pert, exp_data, exp_pert, p_norm=2, eps=1e-6):
 ##############################################################
 def lime_exp_in_data_order(lime_exp, num_fts):
     """
-    bring explanations into data order (since LIME automatically orders according 
+    Bring explanations into data order (since LIME automatically orders according 
     to highest importance)
     """
     exp= np.zeros(num_fts)
@@ -639,7 +641,7 @@ def relative_stability(model, explainers, data, labels, perturbation, descriptor
     Relative Input/Output Stability (RIS/ROS) Metric Computation
     This function evaluates the stability of feature attribution explanations 
     by computing the Relative Input Stability (RIS) and Relative Output Stability (ROS) metrics.
-    - Flexible to evaluate any XAI method in get_x_explanations
+    - Flexible to evaluate any XAI method defined in get_x_explanations from explainers
 
     Parameters
     - model: A trained machine learning model (sklearn or XGBoost) -- binary classifier.
@@ -700,7 +702,7 @@ def relative_stability(model, explainers, data, labels, perturbation, descriptor
         y_pert_preds= torch.from_numpy(ML(
             model, pd.DataFrame(data=x_pert_samples.numpy(), columns=data.columns), predict_proba=False
         ).astype(int))
-        
+
         # get only the first num_perts points ordered by class and distance from x_data
         x_pert_samples, y_pert_preds= get_subsets(
             x_data.reshape(-1), y_pred, x_pert_samples, y_pert_preds, descriptor['num_perts']
@@ -780,7 +782,7 @@ def relative_stability(model, explainers, data, labels, perturbation, descriptor
 def run_stability(explainers, data, labels, descriptor):
     """
     Computes explanation stability over multiple runs, returning the highest instability for each method.
-    - Flexible to evaluate any XAI method in get_x_explanations
+    - Flexible to evaluate any XAI method defined in get_x_explanations from explainers
 
     Parameters
     - explainers: XAIExplainers object used to define the XAI methods to evaluate
@@ -873,10 +875,9 @@ def sorted_indices(seq, reverse:bool=False):
 ##############################################################
 def get_top_k_x_noise(x, e_index, top_k, noise_type='zero', perturbation=None):
     """
-    x is a Pandas DataFrame with an instance
-    e_index is a vector of indices from an explanation ordered with sorted_indices()
-    top_k is an INTEGER representing the number of top features
-    x_pert represents the zero/perturbed instance from x used to generate a x'
+    - x is a Pandas DataFrame with an instance
+    - e_index is a vector of indices from an explanation ordered with sorted_indices()
+    - top_k is an INTEGER representing the number of top features
     
     TODO: implement different types of noise
     
@@ -902,7 +903,12 @@ def get_top_k_x_noise(x, e_index, top_k, noise_type='zero', perturbation=None):
 ##############################################################
 def eval_pred_faithfulness(model, explainers, data, labels, descriptor, top_k=1, noise_type='zero', perturbation=None):
     """
-    Prediction Gap on Important Features
+    Prediction Gap on Important Features (PGIF)
+    The PGIF scores provide insights into the model's predictions, considering both the change in accuracy 
+    when the feature is randomized and the difference in Exp values.
+    - Flexible to evaluate any XAI method defined in get_x_explanations from explainers
+
+    Parameters
     - model: A trained machine learning model (sklearn or XGBoost) -- binary classifier.
     - explainers: XAIExplainers object used to define the XAI methods to evaluate
     - data: DataFrame with data used to evaluate the XAI methods.
@@ -911,11 +917,7 @@ def eval_pred_faithfulness(model, explainers, data, labels, descriptor, top_k=1,
     - top_k (int): Number of important features to perturb (can be a list).
     - noise_type: Type of noise to use for feature perturbation. Default is 'zero'
     - perturbation is a OpenXAI perturbation object
-    
-    RETURNS: PGIF metric considering all features as important for T-Exp, SHAP, and LIME.
-    
-    The PGIF scores provide insights into the model's predictions, considering both the change in accuracy 
-    when the feature is randomized and the difference in Exp values.
+    RETURNS: PGIF metric considering all features as important for XAI feature importance methods.
     """
     # ensure everything is integer, upper and lower boundaries, and remove repetitions
     top_k = sorted(set(max(1, min(int(x), data.shape[1])) for x in np.reshape([top_k], -1)))
@@ -966,19 +968,16 @@ def eval_pred_faithfulness(model, explainers, data, labels, descriptor, top_k=1,
                 )
                 for method in exp_methods
             }
-        
             # take the difference between f(x) and f(x')
             method_fx_acc = {
                 method: ML(model, method_target_x[method])[true_label_value]
                 for method in exp_methods
             }
-
             # take the difference between f(x) and f(x')
             method_fx_acc_diff = {
                 method: np.abs(fx_acc - method_fx_acc[method])
                 for method in exp_methods
             }
-            
             # compute the mean (1/m)sum(|f(x) - f(x'm)|)
             # high fidelity explanation will result in high accuracy differences when deleting/perturbing
             # the k most important features
@@ -1006,8 +1005,7 @@ def eval_pred_faithfulness(model, explainers, data, labels, descriptor, top_k=1,
 def expected_value_x_mean(model, x_mean, y_train, lodds:bool=False):
     """
     Expected value can be understood as the average model output across the training set, and the true labels
-    SHAP paper mention a dataset "would be predicted if we did not know any features"
-
+    SHAP paper mention a dataset "would be predicted if we did not know any features."
     The 'absence of features' or better 'not knowing the feature' needs to be defined/considered carefully. 
     In the context of SHAP it doesn't meant that Xi=0 but it means that we do not know the value of Xi
     but we still may know the distribution of potential values of Xi or we could estimate this distribution 
@@ -1015,14 +1013,12 @@ def expected_value_x_mean(model, x_mean, y_train, lodds:bool=False):
     probs to each label.
 
     Receive one instance x_mean from train dataset mean and y_train, the entire labels_train
-
     IF lodds true return a probability values, log-odds otherwise 
 
     RETURNS: the mean probability of x_mean belonging to the in y_train classes
     """
     # Expected value over the mean from train data
     p_x= ML(model, x_mean)
-
     tam= len(y_train) if len(y_train)<= 10000 else 10000
     pred= 0
     
@@ -1047,7 +1043,7 @@ def eval_local_accuracy(model, explainers, data, labels, descriptor, train_data,
     will be equal to the difference between the expected value of the model and the predicted value, i.e.,
     f(x) = phi_0 + Sum(phi_i), with phi_0 = E[f(X)]. This function computes a local accuracy preservation 
     (LAP) metric for each explanation method as the fraction of instances for which the additive approximation.
-    - Flexible to evaluate any XAI method in get_x_explanations. If necessary, edit the lists of methods
+    - Flexible to evaluate any XAI method defined in get_x_explanations from explainers
 
     Parameters:
     - model: A trained machine learning model (sklearn or XGBoost) -- binary classifier.
@@ -1059,7 +1055,6 @@ def eval_local_accuracy(model, explainers, data, labels, descriptor, train_data,
     - phi_0_methods_list is a list with XAI methods under evaluation that use phi_0 as base values
     - shap_methods_list is a list with the versions of SHAP under evaluation (use SHAP base values)
     - grad_methods_list is a list with the gradient-based XAI methods under evaluation (use phi_0_logit)
-
     RETURNS: measured of faithfulness (dictionary) for local accuracy preservation for each explainer over 
              a non-perturbed dataset as a ratio of explanations that preserved local accuracy. Higher values 
              indicate that more instances preserved local accuracy (i.e., the explanation faithfully 
@@ -1153,7 +1148,7 @@ def explanation_consistency(explainers, train_data, labels_train, target_x, targ
     explanations of its k nearest neighbors (restricted to those with the same class label).
     Evaluate how similar the explanations are for similar instances. For example, if two instances 
     are close in feature space, their explanations should also be similar.
-    - Flexible to evaluate any XAI method in get_x_explanations
+    - Flexible to evaluate any XAI method defined in get_x_explanations from explainers
 
     Parameters
     - explainers: XAIExplainers object used to define the XAI methods to evaluate
@@ -1163,7 +1158,6 @@ def explanation_consistency(explainers, train_data, labels_train, target_x, targ
     - target_y (pd.DataFrame): A single-row DataFrame (with one column) containing the target's label.
     - descriptor: Dictionary defining parameters.
     - k (int, optional): The number of nearest neighbors to consider (default is 5).
-
     RETURNS:
     - float: The average cosine similarity between the explanation of the target instance and those of 
     its k nearest neighbors.
@@ -1240,7 +1234,6 @@ def mean_explanation_consistency(explainers, train_data, labels_train, descripto
         results = explanation_consistency(
             explainers, train_data, labels_train, x_target, y_target, descriptor, k
         )
-        
         # sum up the consistency values for each explainer metric
         for key, value in results.items():
             consistency_sums[key] = consistency_sums.get(key, 0) + value
